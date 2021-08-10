@@ -1,3 +1,4 @@
+[org 0x7c00]
 [bits 16]
 
     xor ax, ax
@@ -27,9 +28,14 @@
     call print
     call newLine
 
+    call inputHandler
+
 
 
 
 welcome db "Welcome to Xenoware Diskclavier!", 0
 license db "Diskclavier is licensed under MIT", 0
 help db "Press h for help", 0
+
+times 510 - ($-$$) db 0
+dw 0xaa55
