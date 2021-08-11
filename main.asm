@@ -28,14 +28,26 @@
     call print
     call newLine
 
-    call inputHandler
+    mov cx, 0fh ;time delay
+    mov dx, 4240h
+    mov ah, 86h
+    int 15h
 
+    mov bx, help
+    call print
+    call newLine
+
+
+    call inputHandler
 
 
 
 welcome db "Welcome to Xenoware Diskclavier!", 0
 license db "Diskclavier is licensed under MIT", 0
 help db "Press h for help", 0
+
+%include "print.asm"
+%include "inputHandler.asm"
 
 times 510 - ($-$$) db 0
 dw 0xaa55

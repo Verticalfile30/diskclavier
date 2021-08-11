@@ -1,7 +1,5 @@
 [bits 16]
 
-global print
-global newLine
 
 print:
     pusha
@@ -10,13 +8,13 @@ print:
 printStart:
     
     mov dx, 0
-    mov al, [bx + dx]
+    mov al, [bx]
 
     cmp al, 0
     je finishPrint
 
     int 0x10
-    inc dx
+    inc bx
     jmp printStart
 
 finishPrint:
@@ -34,5 +32,17 @@ newLineStart:
     int 0x10
 
 newLineDone:    
+    popa
+    ret
+
+printSingle:
+    pusha
+    mov ah, 0x0e
+
+singleStart:
+
+    mov al, bl
+    int 0x10
+    
     popa
     ret
