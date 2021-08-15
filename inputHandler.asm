@@ -5,6 +5,7 @@ inputHandler:
     mov di, inputString
 
 inputLoop:
+
     mov ah, 0x00
     int 16h
 
@@ -33,11 +34,12 @@ helpString:
 
 resetInputString:
     call newLine
+
     mov di, inputString
     jmp inputLoop
     popa
     ret
 
 
-inputString times 50 db 0
-helpMsg db "help msg", 0
+inputString times 50 db 0 
+helpMsg db "Diskclavier is currently in pre-alpha1 development, new features are coming soon!", 0
