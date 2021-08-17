@@ -36,18 +36,24 @@ hTree:
     je eTree
     cmp [di + 1], byte 0x65
     jne resetInputString
+    cmp [di + 1], byte 0x00
+    je resetInputString
 
 eTree:
     cmp [di + 2], byte 0x6c
     je lTree
     cmp [di + 2], byte 0x6c
     jne resetInputString
+    cmp [di + 2], byte 0x00
+    je resetInputString
 
 lTree:
     cmp [di + 3], byte 0x70
     je helpString
     cmp [di + 3], byte 0x70
     jne resetInputString
+    cmp [di + 3], byte 0x00
+    je resetInputString
     
 
 helpString:
