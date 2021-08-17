@@ -67,6 +67,16 @@ resetInputString:
     call newLine
 
     mov di, inputString
+    
+    push ax
+    
+    mov al, 0
+    
+    mov [di], byte 0x00
+    inc di
+    inc al
+    cmp al, 49
+    je resetInputString
     jmp inputLoop
     popa
     ret
