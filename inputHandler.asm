@@ -68,14 +68,11 @@ resetInputString:
 
     mov di, inputString
     
-    push ax
+    mov si, 0
     
-    mov al, 0
-    
-    mov [di], byte 0x00
-    inc di
-    inc al
-    cmp al, 49
+    mov [di + si], byte 0x00
+    inc si
+    cmp si, 49
     je resetInputString
     jmp inputLoop
     popa
