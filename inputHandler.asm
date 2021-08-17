@@ -20,10 +20,30 @@ inputLoop:
     jmp inputLoop
 
 inputProcessor:
-    cmp [di], byte 0x68
-    je helpString
+    mov di, inputString
+    cmp [di + 0], byte 0x68
+    je hTree
     cmp [di], byte 0x68
     jne resetInputString
+
+hTree:
+    cmp [di + 1], 0x65
+    je eTree
+    cmp [di + 1], 0x65
+    jne resetInputString
+
+eTree:
+    cmp [di + 2], 0x6c
+    je lTree
+    cmp [di + 2], 0x6c
+    jne resetInputString
+
+lTree:
+    cmp [di + 3], 0x70
+    je helpString
+    cmp [di + 3], 0x70
+    jne resetInputString
+    
 
 helpString:
     mov bx, helpMsg
