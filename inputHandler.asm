@@ -2,20 +2,44 @@
 
 inputHandler:
     pusha
+    mov di, inputString
 
 inputLoop:
 
     mov ah, 0x00
     int 16h
 
-    cmp al, 0x0d
-    je inputProcessor
-
     mov bl, al
     call printSingle
+
+    cmp al, 13
+    je inputProcessor
+
+    mov [di], al
 
     jmp inputLoop
 
 inputProcessor:
+    cmp [di], byte 0x68
+    je helpString
+    cmp [di], byte 0x68
+    jne resetInputString
+
+helpString:
+    mov bx, helpMsg
+    call newLine
+    call print
+    call newLine
+    jmp inputLoop
+
+resetInputString:
+    call newLine
+
+    mov di, inputString
+    jmp inputLoop
     popa
     ret
+
+
+inputString times 50 db 0 
+helpMsg db "Diskclavier is currently in pre-alpha1 development, new features are coming soon!", 0
