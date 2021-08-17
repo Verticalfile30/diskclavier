@@ -16,32 +16,37 @@ inputLoop:
     je inputProcessor
 
     mov [di], al
-
+    inc di
     jmp inputLoop
 
 inputProcessor:
+    inc di 
+    mov di, 0x00
     mov di, inputString
+    
     cmp [di + 0], byte 0x68
     je hTree
     cmp [di], byte 0x68
     jne resetInputString
+    cmp [di], byte 0x00
+    je resetInputString
 
 hTree:
-    cmp [di + 1], 0x65
+    cmp [di + 1], byte 0x65
     je eTree
-    cmp [di + 1], 0x65
+    cmp [di + 1], byte 0x65
     jne resetInputString
 
 eTree:
-    cmp [di + 2], 0x6c
+    cmp [di + 2], byte 0x6c
     je lTree
-    cmp [di + 2], 0x6c
+    cmp [di + 2], byte 0x6c
     jne resetInputString
 
 lTree:
-    cmp [di + 3], 0x70
+    cmp [di + 3], byte 0x70
     je helpString
-    cmp [di + 3], 0x70
+    cmp [di + 3], byte 0x70
     jne resetInputString
     
 
