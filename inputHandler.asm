@@ -21,14 +21,14 @@ inputLoop:
 
 inputProcessor:
     inc di 
-    mov di, 0x00
+    mov [di], byte 0x00
     mov di, inputString
     
     cmp [di + 0], byte 0x68
     je hTree
-    cmp [di], byte 0x68
+    cmp [di + 0], byte 0x68
     jne resetInputString
-    cmp [di], byte 0x00
+    cmp [di + 0], byte 0x00
     je resetInputString
 
 hTree:
@@ -61,18 +61,19 @@ helpString:
     call newLine
     call print
     call newLine
-    jmp inputLoop
+    jmp resetInputString
 
 resetInputString:
     call newLine
 
     mov di, inputString
     
-    mov si, 0
+    mov al, 0
     
-    mov [di + si], byte 0x00
-    inc si
-    cmp si, 49
+    mov [di], byte 0x00
+    inc di
+    inc al
+    cmp al, 49
     je resetInputString
     jmp inputLoop
     popa
