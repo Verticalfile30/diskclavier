@@ -1,10 +1,14 @@
 [bits 16]
+[org 0x9000]
 
-global print
-global newLine
-global printSingle
+tes:
+    mov bx, testString
+    call printTS
+    call newLineTS
 
-print:
+    jmp $
+
+printTS:
     pusha
     mov ah, 0x0e
 
@@ -24,7 +28,7 @@ finishPrint:
     popa
     ret
 
-newLine:
+newLineTS:
     pusha
 
 newLineStart:
@@ -49,3 +53,5 @@ singleStart:
     
     popa
     ret
+
+testString db "Welcome to Stage 3", 0

@@ -1,16 +1,18 @@
 [bits 16]
+[org 0x1000]
+global inputHandler
 
 inputHandler:
     pusha
-    mov di, inputString
+
 
 inputLoop:
-
+    mov di, inputString
     mov ah, 0x00
     int 16h
 
     mov bl, al
-    call printSingle
+    call printSingleSecondStage
 
     cmp al, 13
     je inputProcessor
@@ -22,24 +24,41 @@ inputLoop:
 inputProcessor:
     cmp [di], byte 0x68
     je helpString
-    cmp [di], byte 0x68
+    cmp [di], byte 0x62
+    je bootYes
     jne resetInputString
+
+bootYes:
+    call bootProcessStart
 
 helpString:
     mov bx, helpMsg
-    call newLine
-    call print
-    call newLine
+    call newLineSecondStage
+    call printSecondStage
+    call newLineSecondStage
+    mov bx, helpMsg2
+    call printSecondStage
+    call newLineSecondStage
+    mov bx, helpMsg3
+    call printSecondStage
+    call newLineSecondStage    
     jmp inputLoop
 
-resetInputString:
-    call newLine
 
-    mov di, inputString
+resetInputString:
+    call newLineSecondStage
+
     jmp inputLoop
     popa
     ret
 
 
-inputString times 50 db 0 
-helpMsg db "Diskclavier is currently in pre-alpha1 development, new features are coming soon!", 0
+inputString times 1 db 0 
+helpMsg db "Diskclavier Commands:", 0
+helpMsg2 db "h = display this message", 0
+helpMsg3 db "b = begin boot process (Low Level Disk Services)", 0
+
+%include "printSecondStage.asm"
+%include "bootConfig.asm"
+%include "stringToNumber.asm"
+%include "diskReadSS.asm"

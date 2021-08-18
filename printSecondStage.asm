@@ -1,10 +1,10 @@
 [bits 16]
 
-global print
-global newLine
-global printSingle
+global printSecondStage
+global newLineSecondStage
+global printSingleSecondStage
 
-print:
+printSecondStage:
     pusha
     mov ah, 0x0e
 
@@ -24,7 +24,7 @@ finishPrint:
     popa
     ret
 
-newLine:
+newLineSecondStage:
     pusha
 
 newLineStart:
@@ -38,7 +38,7 @@ newLineDone:
     popa
     ret
 
-printSingle:
+printSingleSecondStage:
     pusha
     mov ah, 0x0e
 

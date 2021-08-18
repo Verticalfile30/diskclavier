@@ -33,21 +33,27 @@
     mov ah, 86h
     int 15h
 
-    mov bx, help
+    mov bx, SECOND
     call print
     call newLine
 
-
-    call inputHandler
+    mov bx, kernelLocation ;store read data into this address
+    mov dh, 32 ;sectors to read
+    mov dl, [bootDrive] ;disk where image is present
+    call readDisk ;call readDisk funciton
+    call kernelLocation
 
 
 
 welcome db "Welcome to Xenoware Diskclavier!", 0
 license db "Diskclavier is licensed under MIT", 0
-help db "Press h for help", 0
+SECOND db "h = help", 0
+kernelLocation equ 0x1000
+bootDrive db 0
 
 %include "print.asm"
-%include "inputHandler.asm"
+%include "diskRead.asm"
+
 
 times 510 - ($-$$) db 0
 dw 0xaa55
