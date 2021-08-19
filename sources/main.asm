@@ -37,18 +37,21 @@
     call print
     call newLine
 
+    mov ax, 0x0100
+    mov es, ax
     mov bx, kernelLocation ;store read data into this address
     mov dh, 32 ;sectors to read
     mov dl, [bootDrive] ;disk where image is present
     call readDisk ;call readDisk funciton
-    call kernelLocation
+    call kernelSegmentFS:kernelLocation
 
 
 
 welcome db "Welcome to Xenoware Diskclavier!", 0
 license db "Diskclavier is licensed under MIT", 0
 SECOND db "h = help", 0
-kernelLocation equ 0x1000
+kernelLocation equ 0x0000
+kernelSegmentFS equ 0x0100
 bootDrive db 0
 
 %include "print.asm"

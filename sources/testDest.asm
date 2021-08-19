@@ -1,5 +1,5 @@
 [bits 16]
-[org 0x9000]
+[org 0x2000]
 
 tes:
     mov bx, testString

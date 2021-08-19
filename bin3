@@ -7,8 +7,8 @@ romimage: file="/usr/local/bochs/share/bochs/BIOS-bochs-latest", address=0x00000
 vgaromimage: file="/usr/local/bochs/share/bochs/VGABIOS-lgpl-latest"
 boot: floppy
 floppy_bootsig_check: disabled=0
-floppya: type=1_44, 1_44="diskclavier.bin", status=inserted, write_protected=0
-floppyb: type=1_44, 1_44="test.bin", status=inserted, write_protected=0
+floppya: type=1_44, 1_44="floppy.img", status=inserted, write_protected=0
+floppyb: type=1_44, 1_44="floppy2.img", status=inserted, write_protected=0
 ata0: enabled=true, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14
 ata0-master: type=none
 ata0-slave: type=none
@@ -52,3 +52,5 @@ com1: enabled=true, mode=null
 com2: enabled=false
 com3: enabled=false
 com4: enabled=false
+
+magic_break: enabled=1
